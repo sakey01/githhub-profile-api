@@ -1,8 +1,8 @@
 const input = document.querySelector('div input[name="username"]');
 const btn = document.querySelector(".find-btn");
 const dataList = document.querySelector(".data-list");
+const profile = document.createElement("div");
 let login;
-let endpoint;
 
 input.focus();
 
@@ -25,7 +25,7 @@ function getUserData() {
 
   const url = `https://api.github.com/users/${login}`;
 
-  endpoint = fetch(url)
+  const endpoint = fetch(url)
     .then((res) => {
       if (!res.ok) return;
       return res.json();
@@ -33,15 +33,26 @@ function getUserData() {
     .then((data) => {
       dataList.classList.remove("hide");
 
-      dataList.innerHTML += `<img src="${data.avatar_url}" width="100px">`;
-      dataList.innerHTML += `<span>ID: ${data.id}</span>`;
-      dataList.innerHTML += `<span>User: ${data.login}</span>`;
-      dataList.innerHTML += `<span>Name: ${data.name}</span>`;
-      dataList.innerHTML += `<span>Location: ${data.location}</span>`;
-      dataList.innerHTML += `<span>Public Repositories: ${data.public_repos}</span>`;
-      dataList.innerHTML += `<div class="divide"></div>`;
+      profile.innerHTML += `<a id="profile" href="https://github.com/${data.login}" target="_blank" rel="noopener noreferrer"><img src="${data.avatar_url}" width="100px"></a>`;
+      profile.innerHTML += `<span><span class="label">ID: </span>${data.id}</span>`;
+      profile.innerHTML += `<span><span class="label">User: </span> ${data.login}</span>`;
+      profile.innerHTML += `<span><span class="label">Name: </span> ${data.name}</span>`;
+      profile.innerHTML += `<span><span class="label">Bio: </span> ${data.bio}</span>`;
+      profile.innerHTML += `<span><span class="label">Location: </span> ${data.location}</span>`;
+      profile.innerHTML += `<span><span class="label">Public Repository: </span> ${data.public_repos}</span>`;
+      profile.innerHTML += `<span><span class="label">Followers: </span> ${data.followers}</span>`;
+      profile.innerHTML += `<div class="divide"></div>`;
+
+      dataList.appendChild(profile);
+
+      if (profile.innerHTML.includes("null")) {
+        profile.innerHTML = profile.innerHTML.replace(/null/g, "n/a");
+      }
     })
-    .catch((error) => console.log("Error"));
+    .catch((error) => {
+      proflie.classList.add("hide");
+      console.log("ERROR 404");
+    });
 }
 
 btn.addEventListener("click", getUserData);
