@@ -3,30 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Find anyone's GitHub information by typing their" />
-    <title>GitHub API</title>
+    <meta name="description" content="Find anyone's GitHub information by typing their username" />
+    <meta name="keywords" content="GitHub, API, User, Profile, Search" />
+    <title>GitHub Profile Viewer</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link href="style.css" rel="stylesheet" />
     <script defer src="script.js"></script>
   </head>
   <body>
     <main>
-      <div class="form-section">
-        <input
-          name="username"
-          type="name"
-          placeholder="Type GitHub username"
-          autocomplete="off"
-          spellcheck="false"
-        />
-        <button class="find-btn">View Profile</button>
-    
+      <div class="header">
+        <h1>GitHub Profile Viewer</h1>
+        <p>Discover GitHub profiles with detailed information, stats, and more</p>
       </div>
+
+      <div class="form-section">
+        <div class="input-group">
+          <input
+            name="username"
+            type="text"
+            placeholder="Enter GitHub username..."
+            autocomplete="off"
+            spellcheck="false"
+          />
+        </div>
+        <button class="find-btn">
+          <span class="btn-text">View Profile</span>
+          <span class="loading" style="display: none;"></span>
+        </button>
+      </div>
+
       <div class="info-section">
-        <ul class="data-list hide"></ul>
+        <div class="data-list hide"></div>
       </div>
     </main>
   </body>
