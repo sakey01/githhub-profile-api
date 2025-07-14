@@ -1,6 +1,6 @@
 # GitHub API Viewer
 
-Welcome to GitHub API Viewer – a simple application to fetch and display public GitHub user profile data by username.
+Welcome to GitHub API Viewer – an application to fetch and display public GitHub user profile data by username.
 
 ## Features
 
@@ -14,7 +14,7 @@ Welcome to GitHub API Viewer – a simple application to fetch and display publi
 
 ## Usage
 
-1. Enter a GitHub username (e.g., `octocat`, `torvalds`).
+1. Enter a GitHub username (e.g., `sakey01`)
 2. Click "View Profile" or press Enter.
 3. Profile details will be displayed.
 
@@ -48,9 +48,8 @@ async function fetchGitHubProfile(username) {
         });
 
         const data = await response.json();
-        // Handle response data
+        
     } catch (error) {
-        // Handle error
         console.error("Error fetching GitHub profile:", error);
     }
 }

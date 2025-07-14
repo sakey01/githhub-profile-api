@@ -35,7 +35,7 @@ body {
   color: var(--text-primary);
   min-height: 100vh;
   line-height: 1.6;
-  font-size: 16px;
+  font-size: 1rem;
   overflow-x: hidden;
 }
 
@@ -73,7 +73,7 @@ main {
 }
 
 a {
-  color: white;
+  color: var(--text-primary);
 }
 
 .header {
@@ -105,7 +105,6 @@ a {
 }
 
 .input-group {
-  position: relative;
   margin-bottom: 1.5rem;
 }
 
@@ -127,7 +126,6 @@ input::placeholder {
 }
 
 input:focus {
-  outline: none;
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1), var(--shadow-lg);
   transform: translateY(-2px);
@@ -170,16 +168,6 @@ button:hover::before {
 
 button:hover {
   box-shadow: var(--shadow-xl);
-}
-
-button:active {
-  transform: translateY(-1px);
-}
-
-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
 }
 
 .info-section {
@@ -330,6 +318,11 @@ button:disabled {
   margin-top: 1rem;
 }
 
+.hide {
+  display: none;
+}
+
+
 @keyframes fadeInDown {
   from {
     opacity: 0;
@@ -357,10 +350,6 @@ button:disabled {
     padding: 1rem;
   }
   
-  .header h1 {
-    font-size: 2rem;
-  }
-  
   .profile-header {
     flex-direction: column;
     text-align: center;
@@ -385,12 +374,12 @@ button:disabled {
   .profile-stats {
     grid-template-columns: 1fr;
   }
+
+  .header h1 {
+    font-size: 2rem;
+  }
   
   .data-list {
     padding: 1rem;
   }
-}
-
-.hide {
-  display: none;
 }
