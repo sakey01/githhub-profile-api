@@ -24,23 +24,45 @@ btn.addEventListener("click", () => {
 });
 
 function showError(message) {
-  dataList.classList.remove("hide");
-  dataList.innerHTML = `
-    <div class="error">
-      <p>${message}</p>
-      <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-secondary);">
-        <strong>Try these popular usernames:</strong><br>
-        • <strong>octocat</strong> - GitHub's mascot<br>
-        • <strong>torvalds</strong> - Linus Torvalds<br>
-        • <strong>your-username</strong> - Your GitHub username
-      </p>
-    </div>
+  const oldError = document.querySelector(".error-box");
+  if (oldError) oldError.remove();
+
+  const errorBox = document.createElement("div");
+  errorBox.className = "error-box";
+  errorBox.style.cssText = `
+    border: 1px solid var(--error);
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--error);
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
   `;
+  errorBox.innerHTML = `
+    <p style="font-weight: bold; font-size: 1.2rem; margin-bottom: 0.5rem;">${message}</p>
+    <p style="margin-top: 1rem; font-size: 0.95rem; color: var(--error);">
+      <strong>Try these popular usernames:</strong><br>
+      • <strong>octocat</strong> - GitHub's mascot<br>
+      • <strong>torvalds</strong> - Linus Torvalds<br>
+      • <strong>your-username</strong> - Your GitHub username
+    </p>
+  `;
+  btn.parentNode.insertBefore(errorBox, btn.nextSibling);
+}
+
+function clearErrorBox() {
+  const oldError = document.querySelector(".error-box");
+  if (oldError) oldError.remove();
 }
 
 function getUserData() {
   if (!login) return;
   if (login.includes(" ")) return;
+
+  clearErrorBox();
+  dataList.classList.remove("hide");
+  dataList.innerHTML = "";
 
   const url = `https://api.github.com/users/${login}`;
 
@@ -48,7 +70,9 @@ function getUserData() {
     .then((res) => {
       if (!res.ok) {
         if (res.status === 403) {
-          showError("Rate limit exceeded. Please wait a moment and try again.");
+          showError(
+            "You are out of GitHub API requests (tokens). Please wait and try again later."
+          );
           return null;
         } else if (res.status === 404) {
           showError("User not found. Please check the username.");
@@ -61,7 +85,7 @@ function getUserData() {
       return res.json();
     })
     .then((data) => {
-      if (!data || !data.id) showError("User not found");
+      if (!data || !data.id) return;
       displayUserProfile(data);
     })
     .catch((error) => {
@@ -70,6 +94,7 @@ function getUserData() {
 }
 
 function displayUserProfile(data) {
+  clearErrorBox();
   dataList.classList.remove("hide");
   dataList.innerHTML = "";
 
@@ -158,10 +183,8 @@ function displayUserProfile(data) {
       </div>
     </div>
 
-    <div style="text-align: center; margin-top: 2rem;">
+    <button style="text-align: center; margin-top: 2rem;">
       <a href="https://github.com/${data.login}" target="_blank" rel="noopener noreferrer" style="
-        display: inline-block;
-        padding: 0.75rem 1.5rem;
         background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         color: white;
         text-decoration: none;
@@ -169,16 +192,16 @@ function displayUserProfile(data) {
         font-weight: 600;
         transition: all 0.3s ease;
         box-shadow: var(--shadow-md);
-      " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='var(--shadow-lg)'" 
-         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-md)'">
+      " this.style.boxShadow='var(--shadow-lg)'" 
+        this.style.boxShadow='var(--shadow-md)'">
         View on GitHub
       </a>
-    </div>
+    </button>
   `;
 
   dataList.appendChild(profile);
 
   setTimeout(() => {
     dataList.classList.add("show");
-  }, 10);
+  }, 50);
 }
