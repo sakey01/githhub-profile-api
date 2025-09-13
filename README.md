@@ -1,26 +1,24 @@
-## GitHub Profile Viewer
+# GitHub Profile Viewer
 
-Type in a person's username and see their profile information.
+## 💡 About the project
 
-### Screenshot
+GitHub Profile Viewer is an application that lets you find any user by their github profile username. You can see public informations such as their follower count or repositories or much more...
 
-<img width="1278" height="699" alt="Screenshot 2025-07-13 at 17 05 48" src="https://github.com/user-attachments/assets/429a37c4-95c6-47af-9123-36b87cdec8ab" />
+Notes:
+- This was my first time working with APIs. 
+- Credit to AI as well for designing the display.
 
-### Features
+## 🛠️ Technologies
 
-- Search any public GitHub user profile.
-- View stats: repositories, followers, following, and gists.
-- Display profile info: name, bio, location, company, blog, and Twitter handle.
+```HTML```
+```CSS```
+```JavaScript```
 
-## API Rate Limits
+## 🚀 API Rate Limits
+GitHub only allows 60 requests per hour per IP.
 
-GitHub allows 60 unauthenticated requests per hour per IP.
+If you see ```"Rate limit exceeded"``` in the console, then you need to wait an hour.
 
-If you see a "Rate limit exceeded" error in the console:
+## 🎥 Preview
 
-- Wait for an hour.
-- Or use a personal access token for higher limits.
-
-## License
-
-This project is licensed under the MIT License.
+https://github.com/user-attachments/assets/04ecae51-c0bf-411d-a679-11ddcd3d2ecf
